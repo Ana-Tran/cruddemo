@@ -26,8 +26,26 @@ public class CruddemoApplication {
 
 			//queryForSTudents(studentDAO);
 
-			queryForStudentsByLastName(studentDAO);
+			//queryForStudentsByLastName(studentDAO);
+			updateStudent(studentDAO);
 		};
+	}
+
+	private void updateStudent(StudentDAO studentDAO) {
+		// retrieve student based on the id
+		int studentId = 1;
+		System.out.println("Getting student with id: " + studentId);
+		Student myStudent = studentDAO.findById(studentId);
+
+		// change first name to Pom
+		System.out.println("Updating student .....");
+		myStudent.setFirstName("Pom");
+
+		// update the student
+		studentDAO.update(myStudent);
+
+		// display the updated student
+		System.out.println(myStudent);
 	}
 
 	private void queryForStudentsByLastName(StudentDAO studentDAO) {
