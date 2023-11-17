@@ -68,4 +68,13 @@ public class StudentDAOImpl implements StudentDAO{
         // delete the student
         entityManager.remove(theStudent);
     }
+
+    @Override
+    @Transactional
+    public int deleteAll() {
+        // execute update is generic term used to indicate modification to the database
+        int numRowsDeleted = entityManager.createQuery("DELETE FROM Student").executeUpdate();
+
+        return numRowsDeleted;
+    }
 }
