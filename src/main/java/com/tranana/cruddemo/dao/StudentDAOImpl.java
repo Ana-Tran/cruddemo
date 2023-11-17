@@ -2,9 +2,12 @@ package com.tranana.cruddemo.dao;
 
 import com.tranana.cruddemo.entity.Student;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository //gives support for component scanning and handles spring support for exceptions translations
 public class StudentDAOImpl implements StudentDAO{
@@ -28,5 +31,14 @@ public class StudentDAOImpl implements StudentDAO{
     @Override
     public Student findById(Integer id) {
         return entityManager.find(Student.class,id);
+    }
+
+    @Override
+    public List<Student> finalAll() {
+        // create query ** all JPQL syntax based on entity name and fields not database
+        TypedQuery<Student> getStudents = entityManager.createQuery("FROM Student order by lastName",Student.class);
+
+        // return query result
+        return getStudents.getResultList();
     }
 }
